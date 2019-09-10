@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Helloworld</title>
+    <script src='../vue.min.js'></script>
+</head>
+<body>
+    <div id='app'>
+        <!-- js入场动画的钩子函数，同样的，入场动画是enter，出场动画是leave --> 
+        <transition 
+            name='fade'
+            @before-enter="handleBeforeEnter"
+            @enter="handleEnter"
+            @after-enter="handleAfterEnter"
+        >
+            <div v-if='show'>
+                <h1>hello</h1>
+            </div>
+        </transition>
+        
+        <button @click='handleClick'>切换</button>
+    </div>
+    <script>
+        
+        var vm = new Vue({
+            el:"#app",
+            data: {
+                show: true
+            },
+            methods: {
+                handleClick: function(){
+                    this.show = ! this.show 
+                },
+                handleBeforeEnter: function(el){
+                    el.style.color="red"
+                },
+                handleEnter: function(el,done){
+                    setTimeout(() =>{
+                        el.style.color="green"
+            
+                    },2000)
+                    setTimeout(()=>{
+                        done()
+                    },4000)
+                },
+                handleAfterEnter: function(el){
+                    el.style.color="blue"
+                }
+            }
+        })
+    </script>
+</body>
+</html>

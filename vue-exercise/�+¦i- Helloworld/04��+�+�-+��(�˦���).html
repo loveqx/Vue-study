@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='../vue.min.js'></script>
+</head>
+<body>
+	<div id='app'>
+		<input type="text" v-model='inputValue'>
+		<button @click="handleClick">提交</button>
+		<todo-item 
+			v-bind:content="item"
+			v-bind:index="index"
+			v-for="(item,index) in list"
+			@delete="handleSunDelete">
+		</todo-item>
+	</div>
+	<script>
+		//全局组件方式
+		/*Vue.component("TodoItem",{
+			props: ['content'],
+			template:"<li>{{content}}</li>"
+		})*/
+		// 局部组件方式
+		var TodoItem = {
+			//接受父组件传过来的值，并使用之。
+			props: ['content','index'],
+			template:"<li @click='handleSunClick'>{{content}}</li>",
+			methods:{
+				handleSunClick:function(){
+					//子组件通过emit向上一层事件触发，父组件监听delete事件
+					this.$emit('delete',this.index)
+				}
+			}
+		}
+
+		var vm =  new Vue({
+			el:'#app',
+			components:{
+				TodoItem
+			},
+			data: {
+				list:[],
+				inputValue:''
+			},
+			methods:{
+				handleClick:function(){
+					if(this.inputValue==''){
+						alert('输入值不能为空！')
+					}
+					else{
+						this.list.push(this.inputValue);
+						this.inputValue='';
+					}
+				},
+				handleSunDelete:function(index){
+					if(confirm('确定删除'+this.list[index]+'吗？')){
+							this.list.splice(index,1);
+						}else{
+							return false
+						}
+					
+					
+				}
+			}
+		})
+	</script>
+</body>
+</html>

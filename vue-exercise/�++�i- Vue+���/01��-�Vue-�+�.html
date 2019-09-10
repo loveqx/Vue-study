@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='../vue.min.js'></script>
+</head>
+<body>
+	<!-- Vue中一切皆为vue实例 -->
+	<div id='app'>
+		{{content}}
+		<item-son></item-son>
+	</div>
+	<script>
+		//子组件驼峰式命名，使用时要转成item-son
+		Vue.component('itemSon',{
+			template:"<div>我是子组件</div>"
+		})
+		var vm = new Vue({
+			el:"#app",
+			data: {
+				content:"hello world!"
+			}
+		})
+	</script>
+</body>
+</html>

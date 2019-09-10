@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>模板语法</title>
+	<script src='../vue.min.js'></script>
+</head>
+<body>
+	<!-- Vue中一切皆为vue实例 ,v-text="内容"，内容为js的表达式-->
+	<div id='app'>
+		{{content2 + ' boy'}}
+		<div v-text="content + 'boy'">我是默认内容</div>
+		<div v-html="content2">我是默认内容</div>
+	</div>
+	<script>
+		//子组件驼峰式命名，使用时要转成item-son
+		
+		var vm = new Vue({
+			el:"#app",
+			data: {
+				content:"hello world!",
+				content2: "<h1>hello world</h1>"
+			}
+		})
+	</script>
+</body>
+</html>

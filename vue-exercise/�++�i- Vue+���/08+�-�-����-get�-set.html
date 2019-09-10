@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>计算属性的get和set</title>
+	<script src='../vue.min.js'></script>
+</head>
+<body>
+	<!-- Vue中一切皆为vue实例 -->
+	<div id='app'>
+		{{fullName}}
+	</div>
+	<script>
+		
+	
+		var vm = new Vue({
+			el:"#app",
+			data: {
+				firstName:"hello",
+				lastName: "world"
+			},
+			computed: {
+				fullName: {
+					get: function(){
+						return this.firstName +' ' + this.lastName
+					},
+					set: function(value){
+						value_list = value.split(' ')
+						this.firstName = value_list[0]
+						this.lastName = value_list[1]
+					}	
+				}
+			}
+		})
+	</script>
+</body>
+</html>

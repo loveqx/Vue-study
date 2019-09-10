@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+         
+        @keyframes bounce-in {
+          0% {
+            transform: scale(0);
+          }
+          50% {
+            transform: scale(1.5);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+ 
+ 
+        /* .bounce-enter-active {
+          animation: bounce-in .5s;
+        }
+        .bounce-leave-active {
+          animation: bounce-in .5s reverse;
+        } */
+        .active {
+          animation: bounce-in .5s;
+        }
+        .leave {
+          animation: bounce-in .5s reverse;
+        } 
+
+</style>
+ 
+</head>
+<body>
+    <div id="app">
+        <!-- 动画中默认的class名字：fade-enter-active、fade-leave-active等 -->
+        <!-- <transition name="bounce">
+            <div v-if="show">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris facilisis enim libero, at lacinia diam fermentum id. Pellentesque habitant morbi tristique senectus et netus.
+            </div>
+        </transition> -->
+        <!-- 自定义动画中class的名字 -->
+        <transition 
+            name="bounce"
+            enter-active-class="active"
+            leave-active-class="leave"
+
+        >
+            <div v-if="show">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris facilisis enim libero, at lacinia diam fermentum id. Pellentesque habitant morbi tristique senectus et netus.
+            </div>
+        </transition>
+
+        <button @click="handleClick">切换</button>
+    </div>
+ 
+    <script src="../vue.min.js"></script>
+    <script>
+ 
+        // 1. 创建Vue的实例
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                show:false
+            },
+            methods:{
+                handleClick:function(){
+                    this.show = !this.show
+                }
+            }
+        });
+    </script>
+    </body>
+    </html>

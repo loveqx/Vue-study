@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>父子组件传值ref方式</title>
+</head>
+<script src=../vue.min.js></script>
+<body>
+	<div id="app">
+		<counter ref="first" @change="handleFatherClick"></counter>
+		<counter ref="second" @change="handleFatherClick"></counter>
+		<div>{{total}}</div>
+	</div>
+	<script>
+		<!-- 1、子组件中使用data，必须是函数返回一个对象，确保每个子组件数据隔离 -->
+		// 2、子组件通过emit触发事件，父组件通过on侦听事件
+		// 3、父组件通过refs获取子组件数据，这样来达到每个子组件数据独立，子组件有变化，父组件侦听到，且实时更新。
+		Vue.component('counter',{
+			data: function(){
+				return {
+					number: 0
+				}
+			},
+			template: "<div @click='handleChildClick'>{{number}}</div>",
+			methods: {
+				handleChildClick: function(){
+					this.number++;
+					this.$emit('change')
+				}
+			}
+		})
+		var vm = new Vue({
+			el:"#app",
+			data: {
+				total: 0
+			},
+			methods: {
+				handleFatherClick: function(){
+					this.total = this.$refs.first.number + this.$refs.second.number
+				}
+			}
+		})
+	</script>
+</body>
+</html>

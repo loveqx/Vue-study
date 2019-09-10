@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="./animation.css">
+ 
+</head>
+<body>
+    <div id="app">
+        <!-- 因为在第一次载入页面时没有动画效果，为了实现，我们可以新增一个appear类，并且新增appear-active-class类 -->
+        <transition 
+            appear
+            enter-active-class="animated swing"
+            leave-active-class="animated fadeOut"
+            appear-active-class="animated swing"
+        >
+            <div v-if="show">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris facilisis enim libero, at lacinia diam fermentum id. Pellentesque habitant morbi tristique senectus et netus.
+            </div>
+        </transition>
+
+        <button @click="handleClick">切换</button>
+    </div>
+ 
+    <script src="../vue.min.js"></script>
+    <script>
+ 
+        // 1. 创建Vue的实例
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                show:true
+            },
+            methods:{
+                handleClick:function(){
+                    this.show = !this.show
+                }
+            }
+        });
+    </script>
+    </body>
+    </html>

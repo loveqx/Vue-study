@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Helloworld</title>
+    <script src='../vue.min.js'></script>
+    <style>
+        .fade-enter, .fade-leave-to /* 动画到了进入或离开的这一帧时，就会让他隐藏 */ {
+              opacity: 0;
+            }
+
+        .fade-enter-active, .fade-leave-active /* 一旦监听到动画变化，则此帧会进行一个2s的慢慢过渡效果*/ {
+              transition: opacity 2s;
+            }
+            
+    </style>
+</head>
+<body>
+    <div id='app'>
+        <!-- 实际原理就是通过transition标签包裹要有动画的标签，在html元素上添加class的方法来实现动画效果。 -->
+        <!-- transition如果不写name，则默认的名字为v。v-fade,v-fade-enter -->
+        <!-- fade-enter-active的时间段为：fade-enter到fade-enter-to -->
+        <!-- fade-leave-active的时间段为：fade-leave到fade-leave-to -->
+        <transition name='fade' mode="out-in">
+            <div v-if='show' key='one'>hello</div>
+            <div v-else key='two'>bye bye</div>
+        </transition>
+        
+        <button @click='handleClick'>切换</button>
+    </div>
+    <script>
+        
+        var vm = new Vue({
+            el:"#app",
+            data: {
+                show: true
+            },
+            methods: {
+                handleClick: function(){
+                    this.show = ! this.show 
+                }
+            }
+        })
+    </script>
+</body>
+</html>

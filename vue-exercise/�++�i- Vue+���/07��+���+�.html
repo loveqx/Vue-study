@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!--v-if渲染成注释v-if...v-else -->
+		<div v-if="show">{{message}}</div>
+		<div v-else>我是else内容</div>
+		
+		<!-- v-if...v-else-if...v-else -->
+		<div v-if="show==='a'">我是A</div>
+		<div v-else-if="show==='b'">我是B</div>
+		<div v-else>我什么都不是</div>
+	
+		<!-- v-show一开始就渲染了，只是设置了display:none -->
+		<div v-show="show">我是v-show</div>
+		
+		<!-- 注意:这里的input默认会被复用，通过使用key把元素设置成唯一后解决 -->
+		<div v-if="show">
+			用户名: <input type="text" key="username">
+		</div>
+		<div v-else>
+			邮箱名: <input type="text" key="email">
+		</div>
+	</div>
+	
+	<script>
+		var vm = new Vue({
+			el:'#app',
+			data: {
+				message:"hello world",
+				show: 'c'
+			}
+		})
+	</script>
+</body>
+</html>

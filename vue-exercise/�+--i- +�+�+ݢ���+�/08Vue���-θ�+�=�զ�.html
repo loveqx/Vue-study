@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>非父子组件传值(Bus/总线/发布订阅模式/观察者模式)</title>
+</head>
+<script src=../vue.min.js></script>
+<body>
+	<!-- 首先，父组件给子组件传值的时候，设置了一个作用域插槽（必须是template标签的元素)
+		 同时，声明从子组件接受的值存放在变量props，然后父组件直接通过props.variable引用变量
+	解决的问题：作用域插槽解决的问题是：子组件内容可能在多个地方使用，且样式不同（数据渲染成不同的样式）
+	-->
+	<div id="app">
+		<child>
+			<template slot-scope="props">
+				<h1>{{props.item}}-gaga</h1>
+			</template>
+		</child>
+		<child>
+			<template slot-scope="props">
+				<span>{{props.item}}-hello</span>
+			</template>
+		</child>
+		
+	</div>
+	<script>
+		/*	
+		*/
+		Vue.component('child',{
+			data: function(){
+				return {
+					list: [1,2,3,4]
+				}
+			},
+			template: `<div>
+				<ul>
+					<slot v-for="item in list" :item=item></li>
+				</ul>
+			</div>`,
+			props: ['content']
+		})
+		var vm = new Vue({
+			el:"#app"
+		})
+	</script>
+</body>
+</html>

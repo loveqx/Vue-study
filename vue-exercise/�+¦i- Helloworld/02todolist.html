@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TodoList</title>
+	<script src='../vue.min.js'></script>
+</head>
+<body>
+	<div id='app'>
+		<input type="text" v-model='inputValue'>
+		<button @click="handleClick">提交</button>
+		<div>
+			<ul v-for="item in list">
+				<li>{{item}}</li>
+			</ul>
+		</div>
+		
+	</div>
+	<script>
+		<!-- 定义一个list，将todolist内容放入里面，定义个inputValue，用于接收用户传入的内容。 -->
+		var vm =  new Vue({
+			el:'#app',
+			data: {
+				list:[],
+				inputValue:''
+			},
+			methods:{
+				handleClick:function(){
+					if(this.inputValue==''){
+						alert('输入值不能为空！')
+					}
+					else{
+						this.list.push(this.inputValue);
+						this.inputValue='';
+					}
+				}
+			}
+		})
+	</script>
+</body>
+</html>

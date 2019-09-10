@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>样式绑定方式</title>
+	<script src='../vue.min.js'></script>
+	<style>
+		.activated{
+			color:red;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<!--对象的方式，定义class="activated"，是否显示取决于isActivated的值-->
+		<div 
+			@click='handleAddcss'
+			:class="{'activated':isActivated}"
+		>
+			hello world
+		</div>
+	</div>
+	<script>
+		var vm = new Vue({
+			el:'#app',
+			data: {
+				isActivated:false
+			},
+			methods:{
+				handleAddcss:function(){
+					this.isActivated = !this.isActivated;
+				}
+			}
+
+		})
+	</script>
+</body>
+</html>

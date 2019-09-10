@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>样式绑定方式</title>
+	<script src='../vue.min.js'></script>
+	
+</head>
+<body>
+	<div id="app">
+		<!--对象的方式，直接设置即可-->
+		<div 
+			@click='handleAddcss'
+			:style="styleObject"
+		>
+			hello world
+		</div>
+	</div>
+	<script>
+		var vm = new Vue({
+			el:'#app',
+			data: {
+				styleObject:{
+					color:"black"
+				}
+			},
+			methods:{
+				handleAddcss:function(){
+					this.styleObject.color = this.styleObject.color==="black"?"red":"black";
+					this.styleObject['font-size'] = this.styleObject.color==="black"?this.styleObject['font-size'] = "":this.styleObject['font-size'] = "20px"
+					
+					
+					
+				}
+			}
+
+		})
+	</script>
+</body>
+</html>

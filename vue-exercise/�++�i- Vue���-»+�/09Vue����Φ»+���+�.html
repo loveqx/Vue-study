@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Helloworld</title>
+    <script src='../vue.min.js'></script>
+</head>
+<body>
+    <div id='app'>
+        <fade :show="show">
+            <h1>hello</h1>
+        </fade>
+        <button @click='handleClick'>新增</button>
+    </div>
+    <script>
+        Vue.component('fade',{
+            props: ['show'],
+            template: 
+            `<transition name='fade' 
+                @before-enter="handleBeforeEnter"
+                @enter="handleEnter"
+                @after-enter="handleAfterEnter"
+                >
+                <slot v-if="show"></slot>
+            </transition>`,
+            methods: {
+                 handleBeforeEnter: function(el){
+                    el.style.color="red"
+                },
+                handleEnter: function(el,done){
+                    setTimeout(() =>{
+                        el.style.color="green"
+            
+                    },2000)
+                    setTimeout(()=>{
+                        done()
+                    },4000)
+                },
+                handleAfterEnter: function(el){
+                    el.style.color="blue"
+                }
+            }
+        })
+        var vm = new Vue({
+            el:"#app",
+            data: {
+                show: false
+            },
+            methods: {
+                handleClick: function(){
+                    this.show = ! this.show 
+                }
+            }
+        })
+    </script>
+</body>
+</html>

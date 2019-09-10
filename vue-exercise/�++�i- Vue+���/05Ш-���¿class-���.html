@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>样式绑定方式</title>
+	<script src='../vue.min.js'></script>
+	<style>
+		.activated{
+			font-size:20px;
+			color:red;
+		}
+		.activated-green{
+			color:green;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<!--数组的方式，表示class等于activated这个变量的内容-->
+		<div 
+			@click='handleAddcss'
+			:class="[isActivated,Activatedgreen]"
+		>
+			hello world
+		</div>
+	</div>
+	<script>
+		var vm = new Vue({
+			el:'#app',
+			data: {
+				isActivated:"",
+				Activatedgreen:"activated-green"
+			},
+			methods:{
+				handleAddcss:function(){
+					this.isActivated = this.isActivated===""?"activated":"";
+					this.Activatedgreen = this.Activatedgreen===""?"activated-green":""
+				}
+			}
+
+		})
+	</script>
+</body>
+</html>

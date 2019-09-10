@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>列表、对象的更新方法</title>
+	<script src="../vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- 1、列表遍历，注意key一般为数据的唯一ID -->
+		<!-- pop push shift unshift reverse splice sort -->
+		<!-- 数组里只有这7个方法才会让数据实时变化，直接赋值不会实时变化 -->
+		<div v-for="(item,index) in list" 
+			 :key="item.id"
+			 @click="handleClick"
+			 >
+			{{index}}:{{item.text}}
+		</div>
+
+		<!--2、如果有多个元素需要使用循环的内容，我们则启用template,而不需要div -->
+		<template v-for="(item,index) in list" 
+			 :key="item.id"
+			 @click="handleClick">
+			<div>
+				{{index}}:{{item.text}}
+			</div>
+			<span>
+				{{index}}:{{item.text}}
+			</span>
+		</template>
+
+		<!-- 3、对象循环，我们直接改数据也不会实时变化，需要重新赋值才实时变化-->
+		<div v-for="(item,key,index) in object"
+			 @click="handleObjClick">
+			{{item}}--{{key}}--{{index}}
+		</div>
+	</div>
+	
+	<script>
+		var vm = new Vue({
+			el:'#app',
+			data: {
+				list:[
+					{id:111,text:'one'},
+					{id:222,text:'two'},
+					{id:333,text:'three'}
+				],
+				object:{
+					name: 'xue',
+					age: 22,
+					gender:'male'
+				}
+			},
+			methods:{
+				handleClick:function(){
+					// 此方法不能实时修改数据
+					// this.list[1]={id:22,text:'tt'};
+					// 此方法实时修改单项数据，操作index=1，且删除1个数据后并添一项
+					this.list.splice(1,1,{id:0,text:'oneone'});
+					// 实时修改列表方法一
+					this.list=[
+						{id:888,text:'888'},
+						{id:999,text:'999'},
+						{id:666,text:'666'}
+					]
+
+					// 实时修改列表方法二
+					vm.$set(this.list,1,{id:777,text:'777'});
+					// 实时修改对象方法三
+					Vue.set(this.list,2,{id:000,text:'000'})
+				},
+				handleObjClick:function () {
+					// 实时修改对象方法一
+					this.object={
+							name: 'xue',
+							age: 22,
+							gender:'male',
+							salary:'secret'
+						}
+					// 实时修改对象方法二
+					vm.$set(this.object,'address','zhuhai');
+					// 实时修改对象方法三
+					Vue.set(this.object,'address','guangdong');
+				}
+			}
+
+		})
+	</script>
+</body>
+</html>

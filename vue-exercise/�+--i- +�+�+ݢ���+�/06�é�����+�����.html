@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>非父子组件传值(Bus/总线/发布订阅模式/观察者模式)</title>
+</head>
+<script src=../vue.min.js></script>
+<body>
+	<div id="app">
+		<child content="hello"></child>
+		<child content="google"></child>
+	</div>
+	<script>
+		// 1、定义全局bus，即每个vue实例都会有一个bus属性
+		Vue.prototype.bus = new Vue()
+
+		Vue.component('Child',{
+			template: '<div @click="handleClick">{{childContent}}</div>',
+			data: function(){
+				return {
+					childContent: this.content 
+				}
+			},
+			props: {
+				content: String
+			},
+			// 2、通过bus属性，向父组件触发事件
+			methods:{
+				handleClick: function(){
+					this.bus.$emit('change',this.childContent)
+				}
+			},
+			// 3、通过生命周期钩子函数mounted，将数据渲染到组件之上
+			mounted: function(){
+				// 直接使用this，是指child全局属性。其二，不建议直接修改父组件的数据，数据流单一原则，父=>子，子不回改数据，以免影响使用父组件数据的其他组件
+				var _this = this
+				this.bus.$on('change',function(msg){
+					_this.childContent = msg
+				})
+			}
+		})
+		var vm = new Vue({
+			el:"#app"
+		})
+	</script>
+</body>
+</html>

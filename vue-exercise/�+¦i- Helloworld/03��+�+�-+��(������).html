@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='../vue.min.js'></script>
+</head>
+<body>
+	<div id='app'>
+		<input type="text" v-model='inputValue'>
+		<button @click="handleClick">提交</button>
+		<todo-item 
+			v-bind:content="item" 
+			v-for="item in list">
+		</todo-item>
+	</div>
+	<script>
+		//全局组件方式
+		/*Vue.component("TodoItem",{
+			props: ['content'],
+			template:"<li>{{content}}</li>"
+		})*/
+		// 局部组件方式
+		var TodoItem = {
+			//接受父组件传过来的值，并使用之。
+			props: ['content'],
+			template:"<li>{{content}}</li>"
+		}
+
+		var vm =  new Vue({
+			el:'#app',
+			components:{
+				TodoItem
+			},
+			data: {
+				list:[],
+				inputValue:''
+			},
+			methods:{
+				handleClick:function(){
+					if(this.inputValue==''){
+						alert('输入值不能为空！')
+					}
+					else{
+						this.list.push(this.inputValue);
+						this.inputValue='';
+					}
+				}
+			}
+		})
+	</script>
+</body>
+</html>

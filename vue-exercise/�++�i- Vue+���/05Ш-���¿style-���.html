@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>样式绑定方式</title>
+	<script src='../vue.min.js'></script>
+	
+</head>
+<body>
+	<div id="app">
+		<!--数组的方式，里面都是一个一个对象-->
+		<div 
+			@click='handleAddcss'
+			:style="[styleObject,{backgroundColor:'yellow'}]"
+		>
+			hello world
+		</div>
+	</div>
+	<script>
+		var vm = new Vue({
+			el:'#app',
+			data: {
+				styleObject:{
+					color:"black"
+				}
+			},
+			methods:{
+				handleAddcss:function(){
+					if(this.styleObject.color==="black"){
+						this.styleObject.color="red";
+						this.styleObject['font-size']="20px";
+						
+					}else{
+						this.styleObject.color="black";
+						this.styleObject['font-size']="";
+						this.styleObject.background="";
+					}
+				}
+			}
+
+		})
+	</script>
+</body>
+</html>

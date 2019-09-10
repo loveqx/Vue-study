@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>props校验和非props</title>
+</head>
+<script src=../vue.min.js></script>
+<body>
+	<div id="app">
+		<!-- 场景：在子组件上绑定的事件称之为自定义事件。需要子组件emit触发，父组件监听才能执行。 
+				  如果一定要在父组件行执行自定义事件，通过native属性指明这是一个原生事件即可。
+		-->
+		<child @click.native='handleClick'></child>
+	</div>
+	<script>
+		
+		Vue.component('child',{
+			template: "<div @click='handleChildClick'>test</div>",
+			/*methods: {
+				handleChildClick: function(){
+					alert('执行Child')
+					// 只有在子组件emit触发，才能让父组件执行侦听的事件。
+					this.$emit('click')
+				}
+			}*/
+
+		})
+		var vm = new Vue({
+			el:"#app",
+			methods: {
+				handleClick: function(){
+					alert('执行Father')
+				}
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='../vue.min.js'></script>
+</head>
+<body>
+	<!-- Vue中一切皆为vue实例 -->
+	<div id='app'>
+		{{content}}
+		
+	</div>
+	<script>
+		
+		var vm = new Vue({
+			el:"#app",
+			data: {
+				content:"hello world!"
+			},
+			beforeCreate: function(){
+				console.log('beforeCreate')
+			},
+			created: function(){
+				console.log('created')
+			},
+			beforeMount: function(){
+				console.log('beforeMount')
+			},
+			mounted: function(){
+				console.log('mounted')
+			},
+			beforeUpdate: function(){
+				console.log('beforeUpdate')
+			},
+			updated: function(){
+				console.log('updated')
+			},
+			beforeDestroy: function(){
+				console.log('beforeDestroy')
+			},
+			destroyed: function(){
+				console.log('destroyed')
+			}
+		})
+	</script>
+</body>
+</html>

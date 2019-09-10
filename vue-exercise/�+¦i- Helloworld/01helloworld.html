@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Helloworld</title>
+	<script src='../vue.min.js'></script>
+</head>
+<body>
+	<div id='app'>
+		{{content}}
+	</div>
+	<script>
+		<!-- 初始化一个Vue实例，他接管app这一段标签，定义一个数据变量content -->
+		var vm = new Vue({
+			el:"#app",
+			data: {
+				content:"hello world!"
+			}
+		})
+	</script>
+</body>
+</html>

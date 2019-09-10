@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>props校验和非props</title>
+</head>
+<script src=../vue.min.js></script>
+<body>
+	<div id="app">
+		<child :count="2"></child>
+	</div>
+	<script>
+		/*1、props属性，父组件传过来，子组件明确表示接受，且在Html标签中不会显示props属性，比如：count不会出现在html中
+	    2、非props属性，子组件不接父组件传值,props不写，会在html中显示*/
+		 
+		var child ={
+			//props:['count'],
+			props: {
+				count: {
+					type: Number,
+					//required: true,
+					default: 0,
+					validator: function(value){
+						return (value>1)
+					}
+				}
+			},
+			template:"<span>{{count}}</span>"
+		}
+		var vm = new Vue({
+			el:"#app",
+			components:{
+				child
+			}
+		})
+	</script>
+</body>
+</html>

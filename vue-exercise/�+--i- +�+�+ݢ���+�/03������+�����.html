@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>父子组件传值</title>
+</head>
+<script src=../vue.min.js></script>
+<body>
+	<div id="app">
+		<counter :count="3" @change="handleFatherClick"></counter>
+		<counter :count="2" @change="handleFatherClick"></counter>
+		<div>{{total}}</div>
+	</div>
+	<script>
+		<!--1、通过绑定数据的方式，父组件传值给子组件
+			2、子组件不能直接修改父组件的数据，将会导致父组件错乱，比如是引用类型的数据
+			3、通过this.count将父组件的传值拷贝一份，子组件单独修改，然后触发事件，父组件侦听对应事件来实现父子组件传值的效果
+			4、和ref相比不同之处在于ref是通过获取子组件元素后，修改子组件数据的方式
+			5、父子组件歘值有一个规则：单项数据流。
+		 -->
+		var counter ={
+			data: function(){
+				return {
+					number: this.count
+				}
+			},
+			props: ['count'],
+			template: "<div @click='handleChildClick'>{{number}}</div>",
+			methods: {
+				handleChildClick: function(){
+					this.number++;
+					this.$emit('change',1)
+				}
+			}
+		}
+		var vm = new Vue({
+			el:"#app",
+			components:{
+				counter
+			},
+			data: {
+				total: 5
+			},
+			methods: {
+				handleFatherClick: function(step){
+					this.total +=step
+				}
+			}
+		})
+	</script>
+</body>
+</html>

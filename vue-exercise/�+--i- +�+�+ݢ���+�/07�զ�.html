@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>非父子组件传值(Bus/总线/发布订阅模式/观察者模式)</title>
+</head>
+<script src=../vue.min.js></script>
+<body>
+	<!-- 我们希望传入一些复杂的内容，比如有html标签的内容，如果在子组件里接受后，在网页上会原样输出 -->
+	<div id="app">
+		<child content="<span>hahaha</span>">
+			<div class="header" slot="header">我是头部</div>
+			<div class="footer" slot="footer">我是尾部</div>
+		</child>
+		
+	</div>
+	<script>
+		/*	解决方法之一是：使用一个div包裹，然后通过v-html解析，但是这个会多出一个div标签来，可能达不到目的,而且如果内容太多的话，页面也不好看
+			解决方法之二，使用插槽。插槽的作用就是：先占住一个位置，然后可以插入任何内容。当然，也包括命名的插槽，即指定内容的插入。
+			插槽还可以插入默认值，如果没有传递内容，则显示默认内容。
+			插槽可以命名，如果我一段内容A，想在A上面插入一堆内容，A下面下面插入一堆内容，就可以使用具名插槽了。
+		*/
+		Vue.component('child',{
+			/*template: `<div>
+				<p>hello</p>
+				<div v-html="this.content"></div>
+			</div>`,*/
+			/*template: `<div>
+				<p>hello</p>
+				<slot>我是默认值哦</slot>
+			</div>`,*/
+			template: `<div>
+				<p>hello gay！</p>
+				<slot name="header">我是header的默认内容。</slot>
+				<div>我是具名插槽的body。</div>
+				<slot name="footer">我是footer的默认内容。</slot>
+			</div>`,
+			props: ['content']
+		})
+		var vm = new Vue({
+			el:"#app"
+		})
+	</script>
+</body>
+</html>
